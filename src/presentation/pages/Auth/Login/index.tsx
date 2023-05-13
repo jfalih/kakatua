@@ -75,6 +75,44 @@ const Login = ({navigation}: Props) => {
       });
     }
   }, []);
+
+  const handleFacebookLogin = useCallback(async () => {
+    try {
+      // Attempt login with permissions
+      const result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+
+      if (result.isCancelled) {
+        throw 'User cancelled the login process';
+      }
+
+      // Once signed in, get the users AccesToken
+      const data = await AccessToken.getCurrentAccessToken();
+
+      if (!data) {
+        throw 'Something went wrong obtaining access token';
+      }
+
+      // Create a Firebase credential with the AccessToken
+      const facebookCredential = auth.FacebookAuthProvider.credential(
+        data.accessToken,
+      );
+
+      // Sign-in the user with the credential
+      const user = auth().signInWithCredential(facebookCredential);
+      console.log(user);
+    } catch (e) {
+      console.log(e);
+      Toast.show({
+        type: 'error',
+        text1: 'Hmm, kami nemu error nih!',
+        text2: e?.message || 'Server sedang sibuk...',
+      });
+    }
+  }, []);
+
   return (
     <Container
       fill
@@ -202,6 +240,7 @@ const Login = ({navigation}: Props) => {
             <LogoApple />
           </Pressable>
           <Pressable
+            onPress={handleFacebookLogin}
             items="center"
             justify="center"
             width={80}

@@ -6,6 +6,8 @@ import {useTheme} from '../../services/context/Theme/Theme.context';
 import Icon from '../../presentation/components/atoms/Icon';
 import Container from '../../presentation/components/organisms/Container';
 import Home from '../../presentation/pages/Home';
+import Search from '../../presentation/pages/Search';
+import Ticket from '../../presentation/pages/Ticket';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +35,7 @@ const BottomNavigation = () => {
           unmountOnBlur: true,
         }}
         name="Search"
-        component={() => <Container />}
+        component={Search}
       />
       <Tab.Screen
         options={{
@@ -53,7 +55,7 @@ const BottomNavigation = () => {
           unmountOnBlur: true,
         }}
         name="Ticket"
-        component={() => <Container />}
+        component={Ticket}
       />
       <Tab.Screen
         options={{

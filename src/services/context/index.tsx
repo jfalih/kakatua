@@ -6,6 +6,7 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {AuthProvider} from './Auth/Auth.provider';
 import Toast from 'react-native-toast-message';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import { Settings } from 'react-native-fbsdk-next';
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,8 @@ const Provider = () => {
       '343487870638-3egvlfdn044n0vu6lhhdu3e80h0balkl.apps.googleusercontent.com',
     offlineAccess: true,
   });
+  Settings.setAppID('219966484113905');
+  Settings.initializeSDK();
   return (
     <ThemeProvider>
       <SafeAreaProvider>

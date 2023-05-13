@@ -11,6 +11,7 @@ import {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import {useScroll} from '../../../../../services/context/Scroll/Scroll.context';
+import { Box } from '../../../atoms/Layout';
 
 export interface BackProps extends VStackProps {
   title?: string;
@@ -38,12 +39,13 @@ const Back: React.FC<BackProps> = props => {
         self="center"
         onPress={() => navigation.goBack()}
         width={50}
-        height={32}>
+        height={24}>
         <Icon size={24} color={pallate.blackout['05']} name="IconChevronLeft" />
       </Pressable>
       <Text type="title" weight="05">
         {title}
       </Text>
+      <Box width={50} />
       {trailing}
     </HStackAnimated>
   );

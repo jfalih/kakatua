@@ -13,10 +13,12 @@ import Divider from '../../components/atoms/Layout/Divider';
 import {Flex} from '../../components/atoms/Layout';
 import {FadeInDown} from 'react-native-reanimated';
 import Section from '../../components/organisms/Section';
+import useBanners from '../../../core/apis/Banners/useBanners';
 const Home = () => {
   const {user} = useAuth();
   const {spacing, pallate} = useTheme();
   const {data: cities} = useCities();
+  const {data: banners} = useBanners();
   return (
     <Container
       spacing={spacing.large}
@@ -72,15 +74,67 @@ const Home = () => {
           )}
         />
       </Flex>
+      <Flex height={100}>
+        <FlashList
+          contentContainerStyle={{
+            paddingHorizontal: spacing.extraLarge,
+          }}
+          estimatedItemSize={100}
+          data={banners}
+          horizontal
+          renderItem={({item}) => (
+            <Pressable>
+              <Image
+                borderRadius={5}
+                height={100}
+                margin={{
+                  marginRight: spacing.standard,
+                }}
+                style={{
+                  aspectRatio: 3 / 1,
+                  width: 'auto',
+                }}
+                source={{
+                  uri: item.image,
+                }}
+              />
+            </Pressable>
+          )}
+        />
+      </Flex>
       <Section
         title="Lokasi Populer"
-        description="Ayo liburan ke lokasi menarik, ada berbagai macam lokasi populer yang kami rekomendasikan.">
-          
-        </Section>
+        description="Ayo liburan ke lokasi menarik, ada berbagai macam lokasi populer yang kami rekomendasikan."></Section>
       <Section
         title="Lokasi Terdekat"
-        description="Rekomendasi berdasarkan lokasimu"
-      />
+        description="Rekomendasi berdasarkan lokasimu">
+        <FlashList
+          contentContainerStyle={{
+            paddingHorizontal: spacing.extraLarge,
+          }}
+          estimatedItemSize={100}
+          data={banners}
+          horizontal
+          renderItem={({item}) => (
+            <Pressable>
+              <Image
+                borderRadius={5}
+                height={100}
+                margin={{
+                  marginRight: spacing.standard,
+                }}
+                style={{
+                  aspectRatio: 3 / 1,
+                  width: 'auto',
+                }}
+                source={{
+                  uri: item.image,
+                }}
+              />
+            </Pressable>
+          )}
+        />
+      </Section>
     </Container>
   );
 };

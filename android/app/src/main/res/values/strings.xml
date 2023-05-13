@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">kakatua</string>
+    <string name="facebook_app_id">219966484113905</string>
+    <string name="facebook_client_token">63996827a677f9ef543a0c3455674cd4</string>
 </resources>
