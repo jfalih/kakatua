@@ -168,7 +168,7 @@ const Detail = ({route}) => {
               />
             </Flex>
           </VStack>
-          {place && (
+          {place?.map && (
             <VStack
               spacing={spacing.standard}
               padding={{paddingHorizontal: spacing.extraLarge}}>
@@ -190,8 +190,8 @@ const Detail = ({route}) => {
                   rotateEnabled={false}
                   pitchEnabled={false}
                   initialRegion={{
-                    latitude: Number(place?.map?.[0]),
-                    longitude: Number(place?.map?.[1]),
+                    latitude: Number(place?.map[0]),
+                    longitude: Number(place?.map[1]),
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                   }}

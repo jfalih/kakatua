@@ -30,6 +30,17 @@ const Scan = ({navigation}) => {
       const {
         data: {landmark},
       } = res;
+      if (landmark) {
+        firestore()
+          .collection('places')
+          .where('apiName', '==', landmark)
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(documentSnapshot => {
+              navigation.navigate('Detail', {id: documentSnapshot.id});
+            });
+          });
+      }
       const reference = storage().ref(image);
       await reference.putFile(uri);
 
@@ -39,16 +50,6 @@ const Scan = ({navigation}) => {
         landmark,
         image: url,
       });
-      if (landmark) {
-        firestore()
-          .collection('places')
-          .where('apiName', '==', landmark)
-          .get()
-          .then(querySnapshot => {
-            navigation.navigate('Detail', {id: querySnapshot.id});
-            return;
-          });
-      }
     },
   });
 
