@@ -6,7 +6,8 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {AuthProvider} from './Auth/Auth.provider';
 import Toast from 'react-native-toast-message';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import { Settings } from 'react-native-fbsdk-next';
+import {Settings} from 'react-native-fbsdk-next';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const queryClient = new QueryClient();
 
@@ -23,8 +24,10 @@ const Provider = () => {
       <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
-            <RootNavigation />
-            <Toast topOffset={50} />
+            <GestureHandlerRootView style={{flex: 1}}>
+              <RootNavigation />
+              <Toast topOffset={50} />
+            </GestureHandlerRootView>
           </AuthProvider>
         </QueryClientProvider>
       </SafeAreaProvider>

@@ -2,10 +2,10 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import PagerView, {PagerViewProps} from 'react-native-pager-view';
 import Pressable from '../../atoms/Pressable';
 import Image from '../../atoms/Image';
-import {HStack} from '../../atoms/Layout/Stack';
+import {HStack, VStack} from '../../atoms/Layout/Stack';
 import {Box, Flex} from '../../atoms/Layout';
 import {useTheme} from '../../../../services/context/Theme/Theme.context';
-import {StyleSheet, useWindowDimensions} from 'react-native';
+import {ImageBackground, StyleSheet, useWindowDimensions} from 'react-native';
 import Text from '../../atoms/Text';
 
 interface CarouselProps extends PagerViewProps {
@@ -15,11 +15,10 @@ interface CarouselProps extends PagerViewProps {
 }
 
 const Carousel = (props: CarouselProps) => {
-  const {data, height = 260, isDetail, autoSlide = true, style} = props;
+  const {data, isDetail, autoSlide = true, style} = props;
   const {pallate, spacing} = useTheme();
   const [page, setPage] = useState(0);
   const pageViewRef = useRef();
-  const {width} = useWindowDimensions();
   const timeout = useRef<number>();
   const stopAutoSlide = useCallback(() => {
     if (timeout.current) {
@@ -55,51 +54,65 @@ const Carousel = (props: CarouselProps) => {
         {data.map((val, index) => (
           <Flex key={index}>
             <Pressable shrink={false}>
-              <Image
+              <ImageBackground
                 source={{uri: val.image}}
-                resize="cover"
-                style={[carouselStyle.image, style]}
-              />
+                style={[
+                  carouselStyle.image,
+                  {
+                    justifyContent: 'flex-end',
+                  },
+                  style,
+                ]}>
+                <HStack
+                  backgroundColor={'rgba(0,0,0,0.4)'}
+                  fill
+                  items="flex-end"
+                  justify="space-between"
+                  padding={{
+                    paddingTop: spacing.large,
+                    paddingBottom: spacing.large * 2 + spacing.standard,
+                    paddingHorizontal: spacing.large,
+                  }}>
+                  <VStack>
+                    <Text
+                      color={pallate.whiteout['01']}
+                      type="title"
+                      weight="01">
+                      Bromo
+                    </Text>
+                    <Text
+                      color={pallate.whiteout['01']}
+                      type="title"
+                      weight="05">
+                      Magelang
+                    </Text>
+                  </VStack>
+                  <Text type="title" weight="05" color={pallate.whiteout['01']}>
+                    Rp300.000,00
+                  </Text>
+                </HStack>
+              </ImageBackground>
             </Pressable>
           </Flex>
         ))}
       </PagerView>
-      {isDetail ? (
-        <HStack
-          spacing={spacing.small}
-          padding={{
-            paddingVertical: spacing.small,
-            paddingHorizontal: spacing.standard,
-          }}
-          borderRadius={20}
-          backgroundColor={pallate.neutral['01']}
-          position={{
-            bottom: 20,
-            left: spacing.large,
-          }}>
-          <Text type="body" weight="02">
-            {page + 1}/{data.length}
-          </Text>
-        </HStack>
-      ) : (
-        <HStack
-          spacing={spacing.small}
-          position={{
-            bottom: 40,
-            left: spacing.large,
-          }}>
-          {data.map((val, index) => (
-            <Box
-              backgroundColor={
-                page === index ? pallate.neutral['05'] : pallate.neutral['03']
-              }
-              height={3}
-              borderRadius={1}
-              width={page === index ? 32 : 14}
-            />
-          ))}
-        </HStack>
-      )}
+      <HStack
+        spacing={spacing.small}
+        position={{
+          bottom: 40,
+          left: spacing.large,
+        }}>
+        {data.map((val, index) => (
+          <Box
+            backgroundColor={
+              page === index ? pallate.blackout['05'] : pallate.whiteout['03']
+            }
+            height={3}
+            borderRadius={1}
+            width={page === index ? 32 : 14}
+          />
+        ))}
+      </HStack>
     </Box>
   );
 };

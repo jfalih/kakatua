@@ -8,17 +8,26 @@ import useCities from '../../../core/apis/Cities/useCities';
 import {FlashList} from '@shopify/flash-list';
 import Pressable from '../../components/atoms/Pressable';
 import Image from '../../components/atoms/Image';
-import {VStack, VStackAnimated} from '../../components/atoms/Layout/Stack';
+import {
+  HStack,
+  VStack,
+  VStackAnimated,
+} from '../../components/atoms/Layout/Stack';
 import Divider from '../../components/atoms/Layout/Divider';
-import {Flex} from '../../components/atoms/Layout';
+import {Box, Flex} from '../../components/atoms/Layout';
 import {FadeInDown} from 'react-native-reanimated';
 import Section from '../../components/organisms/Section';
 import useBanners from '../../../core/apis/Banners/useBanners';
+import usePlaces from '../../../core/apis/Places/usePlaces';
+import {ImageBackground, ScrollView} from 'react-native';
+import usePopuler from '../../../core/apis/Populer/usePopuler';
 const Home = () => {
   const {user} = useAuth();
   const {spacing, pallate} = useTheme();
   const {data: cities} = useCities();
   const {data: banners} = useBanners();
+  const {data: places} = usePlaces();
+  const {data: favorites} = usePopuler();
   return (
     <Container
       spacing={spacing.large}
@@ -102,39 +111,160 @@ const Home = () => {
           )}
         />
       </Flex>
-      <Section
-        title="Lokasi Populer"
-        description="Ayo liburan ke lokasi menarik, ada berbagai macam lokasi populer yang kami rekomendasikan."></Section>
-      <Section
-        title="Lokasi Terdekat"
-        description="Rekomendasi berdasarkan lokasimu">
-        <FlashList
-          contentContainerStyle={{
-            paddingHorizontal: spacing.extraLarge,
-          }}
-          estimatedItemSize={100}
-          data={banners}
-          horizontal
-          renderItem={({item}) => (
-            <Pressable>
-              <Image
-                borderRadius={5}
-                height={100}
-                margin={{
-                  marginRight: spacing.standard,
-                }}
-                style={{
-                  aspectRatio: 3 / 1,
-                  width: 'auto',
-                }}
-                source={{
-                  uri: item.image,
-                }}
-              />
-            </Pressable>
-          )}
-        />
-      </Section>
+      {favorites && (
+        <Section
+          title="Lokasi Populer"
+          description="Ayo liburan ke lokasi menarik, ada berbagai macam lokasi populer yang kami rekomendasikan.">
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            contentContainerStyle={{
+              paddingHorizontal: spacing.extraLarge,
+            }}>
+            <VStack spacing={spacing.standard} width={800}>
+              <HStack fill spacing={spacing.standard}>
+                <Pressable fill>
+                  <ImageBackground
+                    source={{
+                      uri: favorites[0]?.image,
+                    }}
+                    imageStyle={{
+                      borderRadius: 8,
+                    }}
+                    style={{
+                      width: '100%',
+                      height: 200,
+                    }}>
+                    <Flex
+                      items="flex-end"
+                      padding={16}
+                      fill
+                      borderRadius={8}
+                      backgroundColor={'rgba(0,0,0,0.4)'}>
+                      <Text
+                        color={pallate.whiteout['01']}
+                        type="title"
+                        weight="03">
+                        {favorites[0]?.name}
+                      </Text>
+                    </Flex>
+                  </ImageBackground>
+                </Pressable>
+                <Pressable fill>
+                  <ImageBackground
+                    source={{
+                      uri: favorites[1]?.image,
+                    }}
+                    imageStyle={{
+                      borderRadius: 8,
+                    }}
+                    style={{
+                      width: '100%',
+                      height: 200,
+                    }}>
+                    <Flex
+                      items="flex-end"
+                      padding={16}
+                      fill
+                      borderRadius={8}
+                      backgroundColor={'rgba(0,0,0,0.4)'}>
+                      <Text
+                        color={pallate.whiteout['01']}
+                        type="title"
+                        weight="03">
+                        {favorites[1]?.name}
+                      </Text>
+                    </Flex>
+                  </ImageBackground>
+                </Pressable>
+              </HStack>
+              <HStack fill spacing={spacing.standard}>
+                <Pressable fill>
+                  <ImageBackground
+                    source={{
+                      uri: favorites[2]?.image,
+                    }}
+                    imageStyle={{
+                      borderRadius: 8,
+                    }}
+                    style={{
+                      width: '100%',
+                      height: 200,
+                    }}>
+                    <Flex
+                      items="flex-end"
+                      padding={16}
+                      fill
+                      borderRadius={8}
+                      backgroundColor={'rgba(0,0,0,0.4)'}>
+                      <Text
+                        color={pallate.whiteout['01']}
+                        type="title"
+                        weight="03">
+                        {favorites[2]?.name}
+                      </Text>
+                    </Flex>
+                  </ImageBackground>
+                </Pressable>
+                <Pressable fill>
+                  <ImageBackground
+                    source={{
+                      uri: favorites[3]?.image,
+                    }}
+                    imageStyle={{
+                      borderRadius: 8,
+                    }}
+                    style={{
+                      width: '100%',
+                      height: 200,
+                    }}>
+                    <Flex
+                      items="flex-end"
+                      padding={16}
+                      fill
+                      borderRadius={8}
+                      backgroundColor={'rgba(0,0,0,0.4)'}>
+                      <Text
+                        color={pallate.whiteout['01']}
+                        type="title"
+                        weight="03">
+                        {favorites[3]?.name}
+                      </Text>
+                    </Flex>
+                  </ImageBackground>
+                </Pressable>
+                <Pressable fill>
+                  <ImageBackground
+                    source={{
+                      uri: favorites[4]?.image,
+                    }}
+                    imageStyle={{
+                      borderRadius: 8,
+                    }}
+                    style={{
+                      width: '100%',
+                      height: 200,
+                    }}>
+                    <Flex
+                      items="flex-end"
+                      padding={16}
+                      fill
+                      borderRadius={8}
+                      backgroundColor={'rgba(0,0,0,0.4)'}>
+                      <Text
+                        color={pallate.whiteout['01']}
+                        type="title"
+                        weight="03">
+                        {favorites[4]?.name}
+                      </Text>
+                    </Flex>
+                  </ImageBackground>
+                </Pressable>
+              </HStack>
+            </VStack>
+          </ScrollView>
+        </Section>
+      )}
     </Container>
   );
 };

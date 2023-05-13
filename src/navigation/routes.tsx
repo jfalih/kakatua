@@ -1,4 +1,3 @@
-import Home from '../presentation/pages/Home';
 import BottomNavigation from './BottomNavigation';
 
 export type RootStackParamList = {

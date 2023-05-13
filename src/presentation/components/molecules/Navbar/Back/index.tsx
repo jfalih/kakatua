@@ -19,7 +19,7 @@ export interface BackProps extends VStackProps {
 }
 
 const Back: React.FC<BackProps> = props => {
-  const {title, trailing, style, ...rest} = props;
+  const {title, trailing, ...rest} = props;
   const navigation = useNavigation();
   const {spacing, pallate} = useTheme();
   const {contentOffset} = useScroll();
