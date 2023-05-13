@@ -1,12 +1,7 @@
 import React from 'react';
-import {FlashList} from '@shopify/flash-list';
 import {HStack, StackProps, VStack} from '../../atoms/Layout/Stack';
 import Text from '../../atoms/Text';
-import {Flex} from '../../atoms/Layout';
-import Divider from '../../atoms/Layout/Divider';
 import {useTheme} from '../../../../services/context/Theme/Theme.context';
-import Button from '../../atoms/Button';
-import Icon from '../../atoms/Icon';
 
 interface SectionProps extends StackProps {
   title: string;
@@ -15,7 +10,7 @@ interface SectionProps extends StackProps {
 }
 
 const Section = (props: SectionProps) => {
-  const {title, description, useFilter, children} = props;
+  const {title, description, children} = props;
   const {spacing, pallate} = useTheme();
   return (
     <VStack spacing={spacing.medium}>

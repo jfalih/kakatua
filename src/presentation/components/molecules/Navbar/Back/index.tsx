@@ -1,17 +1,12 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import Icon from '../../../atoms/Icon';
-import {HStack, HStackAnimated, VStack, VStackProps} from '../../../atoms/Layout/Stack';
+import {HStackAnimated, VStackProps} from '../../../atoms/Layout/Stack';
 import Pressable from '../../../atoms/Pressable';
 import {useTheme} from '../../../../../services/context/Theme/Theme.context';
 import {useNavigation} from '@react-navigation/native';
-import Button from '../../../atoms/Button';
-import Divider from '../../../atoms/Layout/Divider';
-import {FlashList} from '@shopify/flash-list';
-import {Flex} from '../../../atoms/Layout';
-import SearchBar from '../../../atoms/SearchBar';
 import Text from '../../../atoms/Text';
-import { interpolateColor, useAnimatedStyle } from 'react-native-reanimated';
-import { useScroll } from '../../../../../services/context/Scroll/Scroll.context';
+import {interpolateColor, useAnimatedStyle} from 'react-native-reanimated';
+import {useScroll} from '../../../../../services/context/Scroll/Scroll.context';
 
 export interface BackProps extends VStackProps {
   title?: string;
@@ -58,7 +53,7 @@ const Back: React.FC<BackProps> = props => {
       <Text type="title" weight="05">
         {title}
       </Text>
-      {trailing || <Flex width={50} />}
+      {trailing}
     </HStackAnimated>
   );
 };
