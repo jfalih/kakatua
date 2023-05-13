@@ -11,7 +11,7 @@ import Divider from '../../components/atoms/Layout/Divider';
 import Image from '../../components/atoms/Image';
 import RenderHTML from 'react-native-render-html';
 import {Flex} from '../../components/atoms/Layout';
-import WebView from 'react-native-webview';
+import MapView from 'react-native-maps';
 import IframeRenderer, {iframeModel} from '@native-html/iframe-plugin';
 
 const Detail = ({route}) => {
@@ -29,6 +29,7 @@ const Detail = ({route}) => {
   const customHTMLElementModels = {
     iframe: iframeModel,
   };
+
   return (
     <Container>
       <Carousel
@@ -90,19 +91,21 @@ const Detail = ({route}) => {
             <Text type="title" weight="01">
               Location
             </Text>
-            <Flex height={300} width={300}>
-              <RenderHTML
-                renderers={renderers}
-                customHTMLElementModels={customHTMLElementModels}
-                WebView={WebView}
-                contentWidth={500}
-                source={{
-                  html: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.6587669122105!2d112.6310640968769!3d-7.279611840817893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fde37c752695%3A0x74e5be7a21cda0f1!2sNisrina%20Futsal%20Center!5e0!3m2!1sid!2sid!4v1683993532674!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+            <Flex
+              borderRadius={20}
+              style={{
+                overflow: 'hidden',
+              }}>
+              <MapView
+                style={{
+                  width: '100%',
+                  height: 300,
                 }}
-                renderersProps={{
-                  iframe: {
-                    scalesPageToFit: true,
-                  },
+                initialRegion={{
+                  latitude: Number(place?.map[0]),
+                  longitude: Number(place?.map[1]),
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
                 }}
               />
             </Flex>
