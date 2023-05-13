@@ -125,6 +125,7 @@ const Register = ({navigation}: Props) => {
       });
     }
   }, []);
+
   return (
     <Container
       fill

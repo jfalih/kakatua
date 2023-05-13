@@ -1,12 +1,12 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import PagerView, {PagerViewProps} from 'react-native-pager-view';
 import Pressable from '../../atoms/Pressable';
-import Image from '../../atoms/Image';
 import {HStack, VStack} from '../../atoms/Layout/Stack';
 import {Box, Flex} from '../../atoms/Layout';
 import {useTheme} from '../../../../services/context/Theme/Theme.context';
-import {ImageBackground, StyleSheet, useWindowDimensions} from 'react-native';
+import {ImageBackground, StyleSheet} from 'react-native';
 import Text from '../../atoms/Text';
+import Image from '../../atoms/Image';
 
 interface CarouselProps extends PagerViewProps {
   data: [];
@@ -15,7 +15,7 @@ interface CarouselProps extends PagerViewProps {
 }
 
 const Carousel = (props: CarouselProps) => {
-  const {data, isDetail, autoSlide = true, style} = props;
+  const {data, name, city, prices, autoSlide = true, style} = props;
   const {pallate, spacing} = useTheme();
   const [page, setPage] = useState(0);
   const pageViewRef = useRef();
@@ -54,48 +54,45 @@ const Carousel = (props: CarouselProps) => {
         {data.map((val, index) => (
           <Flex key={index}>
             <Pressable shrink={false}>
-              <ImageBackground
-                source={{uri: val.image}}
+              <Image
+                source={{uri: val}}
                 style={[
                   carouselStyle.image,
                   {
                     justifyContent: 'flex-end',
                   },
                   style,
-                ]}>
-                <HStack
-                  backgroundColor={'rgba(0,0,0,0.4)'}
-                  fill
-                  items="flex-end"
-                  justify="space-between"
-                  padding={{
-                    paddingTop: spacing.large,
-                    paddingBottom: spacing.large * 2 + spacing.standard,
-                    paddingHorizontal: spacing.large,
-                  }}>
-                  <VStack>
-                    <Text
-                      color={pallate.whiteout['01']}
-                      type="title"
-                      weight="01">
-                      Bromo
-                    </Text>
-                    <Text
-                      color={pallate.whiteout['01']}
-                      type="title"
-                      weight="05">
-                      Magelang
-                    </Text>
-                  </VStack>
-                  <Text type="title" weight="05" color={pallate.whiteout['01']}>
-                    Rp300.000,00
-                  </Text>
-                </HStack>
-              </ImageBackground>
+                ]}></Image>
             </Pressable>
           </Flex>
         ))}
       </PagerView>
+      <HStack
+        position={{
+          top: 0,
+        }}
+        backgroundColor={'rgba(0,0,0,0.4)'}
+        width={'100%'}
+        height={'100%'}
+        items="flex-end"
+        justify="space-between"
+        padding={{
+          paddingTop: spacing.large,
+          paddingBottom: spacing.large * 2 + spacing.standard,
+          paddingHorizontal: spacing.large,
+        }}>
+        <VStack>
+          <Text color={pallate.whiteout['01']} type="title" weight="01">
+            {name}
+          </Text>
+          <Text color={pallate.whiteout['01']} type="title" weight="05">
+            {city}
+          </Text>
+        </VStack>
+        <Text type="title" weight="05" color={pallate.whiteout['01']}>
+          {prices}
+        </Text>
+      </HStack>
       <HStack
         spacing={spacing.small}
         position={{
