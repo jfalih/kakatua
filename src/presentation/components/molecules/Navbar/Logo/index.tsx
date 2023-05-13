@@ -5,7 +5,6 @@ import Pressable from '../../../atoms/Pressable';
 import Icon from '../../../atoms/Icon';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Flex} from '../../../atoms/Layout';
-import {LogoBlack} from '../../../../../assets';
 import {useScroll} from '../../../../../services/context/Scroll/Scroll.context';
 import {interpolateColor, useAnimatedStyle} from 'react-native-reanimated';
 import {Linking} from 'react-native';
@@ -39,9 +38,7 @@ const Logo = (props: HStackProps) => {
         paddingHorizontal: spacing.large,
       }}
       {...rest}>
-      <Flex fill>
-        <LogoBlack />
-      </Flex>
+      <Flex fill />
       <HStack spacing={spacing.medium}>
         <Pressable>
           <Icon name="IconHeart" size={24} color={pallate.neutral['05']} />

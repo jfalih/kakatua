@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {RoutesItemType, routes} from './routes';
 import RNBootSplash from 'react-native-bootsplash';
 import {useAuth} from '../services/context/Auth/Auth.context';
-import AuthNavigation from './Auth';
+import AuthNavigation from './AuthNavigation';
 
 const Stack = createNativeStackNavigator();
 

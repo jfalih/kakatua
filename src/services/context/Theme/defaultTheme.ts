@@ -3,124 +3,123 @@ import {Theme} from './Theme.context';
 
 import lightColors from './_lightColors.json';
 import darkColors from './_darkColors.json';
-import {moderateScale} from '../../../core/utils/scale';
 
 const typography = {
   title: {
     '01': {
       fontFamily: 'Lexend-SemiBold',
       fontWeight: '600',
-      fontSize: moderateScale(24),
+      fontSize: 24,
     },
     '02': {
       fontFamily: 'Lexend-Bold',
-      fontSize: moderateScale(20),
+      fontSize: 20,
     },
     '03': {
       fontFamily: 'Lexend-Bold',
-      fontSize: moderateScale(18),
+      fontSize: 18,
     },
     '04': {
       fontFamily: 'Lexend-Bold',
-      fontSize: moderateScale(16),
+      fontSize: 16,
     },
     '05': {
       fontFamily: 'Lexend-SemiBold',
-      fontSize: moderateScale(14),
+      fontSize: 14,
     },
     '06': {
       fontFamily: 'Lexend-SemiBold',
-      fontSize: moderateScale(12),
+      fontSize: 12,
     },
     appBar: {
       fontFamily: 'Lexend-Bold',
-      fontSize: moderateScale(14),
+      fontSize: 14,
     },
     navbar: {
       fontFamily: 'Lexend-Medium',
-      fontSize: moderateScale(14),
+      fontSize: 14,
     },
   },
   subtitles: {
     '01': {
       fontFamily: 'Lexend-Light',
       fontWeight: '300',
-      fontSize: moderateScale(12),
+      fontSize: 12,
     },
     '02': {
       fontFamily: 'Lexend-Medium',
       fontWeight: '500',
-      fontSize: moderateScale(10),
+      fontSize: 10,
     },
     '03': {
       fontFamily: 'Lexend-Regular',
-      fontSize: moderateScale(8),
+      fontSize: 8,
     },
     appBar: {
       fontFamily: 'Lexend-Light',
       fontWeight: '300',
-      fontSize: moderateScale(10),
+      fontSize: 10,
     },
   },
   button: {
     '01': {
       fontFamily: 'Lexend-Medium',
       fontWeight: '500',
-      fontSize: moderateScale(16),
+      fontSize: 16,
     },
     '02': {
       fontFamily: 'Lexend-Medium',
       fontWeight: '500',
-      fontSize: moderateScale(15),
+      fontSize: 15,
     },
     '03': {
       fontFamily: 'Lexend-Medium',
       fontWeight: '500',
-      fontSize: moderateScale(12),
+      fontSize: 12,
     },
     '04': {
       fontFamily: 'Lexend-Light',
       fontWeight: '500',
-      fontSize: moderateScale(10),
+      fontSize: 10,
     },
     tabItem: {
       fontFamily: 'Lexend-Medium',
       fontWeight: '500',
-      fontSize: moderateScale(10),
+      fontSize: 10,
     },
   },
   body: {
     '01': {
       lineHeight: 18,
       fontFamily: 'Poppins-Regular',
-      fontSize: moderateScale(12),
+      fontSize: 12,
     },
     '02': {
       lineHeight: 15,
       fontFamily: 'Poppins-Regular',
-      fontSize: moderateScale(10),
+      fontSize: 10,
     },
   },
   caption: {
     '01': {
       fontFamily: 'Lexend-Regular',
       fontWeight: '400',
-      fontSize: moderateScale(10),
+      fontSize: 10,
     },
     tabItem: {
       fontFamily: 'Lexend-Medium',
       fontWeight: '500',
-      fontSize: moderateScale(10),
+      fontSize: 10,
     },
   },
   selection: {
     active: {
       fontFamily: 'Lexend-Bold',
-      fontSize: moderateScale(12),
+      fontSize: 12,
     },
     inactive: {
       fontFamily: 'Poppins-Regular',
-      fontSize: moderateScale(12),
+      fontSize: 12,
     },
   },
 };

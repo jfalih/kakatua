@@ -2,11 +2,6 @@ import React from 'react';
 import {TextInput, TextInputProps} from 'react-native';
 import {Box, Flex} from '../Layout';
 import {useTheme} from '../../../../services/context/Theme/Theme.context';
-import {
-  horizontalScale,
-  moderateScale,
-  verticalScale,
-} from '../../../../core/utils/scale';
 import Icon, {IconProps} from '../Icon';
 import {FlexAnimated, FlexProps} from '../Layout/Flex';
 import {
@@ -14,7 +9,7 @@ import {
   interpolateColor,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import {VStack, VStackAnimated} from '../Layout/Stack';
+import {VStackAnimated} from '../Layout/Stack';
 import Text from '../Text';
 
 type InputType = TextInputProps & FlexProps;
@@ -58,13 +53,10 @@ const Input = React.memo(
           <FlexAnimated
             fill
             style={animatedSearchStyle}
-            borderRadius={moderateScale(12)}
+            borderRadius={12}
             padding={{
-              paddingLeft:
-                leading || icon
-                  ? horizontalScale(spacing.large * 2)
-                  : spacing.large,
-              paddingRight: trailing && horizontalScale(spacing.large * 2),
+              paddingLeft: leading || icon ? spacing.large * 2 : spacing.large,
+              paddingRight: trailing && spacing.large * 2,
             }}
             height={50}
             as={
@@ -84,10 +76,8 @@ const Input = React.memo(
             <Box
               backgroundColor={'transparent'}
               position={{
-                left: horizontalScale(spacing.standard),
-                top:
-                  icon &&
-                  moderateScale(50) / 2 - moderateScale((icon.size || 14) / 2),
+                left: spacing.standard,
+                top: icon && 50 / 2 - (icon.size || 14) / 2,
               }}>
               {icon ? (
                 <Icon name={icon.name} size={icon.size} color={icon.color} />
@@ -100,8 +90,8 @@ const Input = React.memo(
             <Box
               as={trailing}
               position={{
-                right: horizontalScale(spacing.standard),
-                top: verticalScale(42 / 2 - 18 / 2),
+                right: spacing.standard,
+                top: 42 / 2 - 18 / 2,
               }}
             />
           )}

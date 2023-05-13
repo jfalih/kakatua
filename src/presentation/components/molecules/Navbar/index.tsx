@@ -1,16 +1,10 @@
 import React from 'react';
-import Default, {DefaultProps} from './Default';
 import Logo from './Logo';
-import Commerce, {CommerceProps} from './Commerce';
 import Back, {BackProps} from './Back';
-import Sidebar from './Sidebar';
 
 const Components = {
-  default: Default,
-  commerce: Commerce,
   logo: Logo,
   back: Back,
-  sidebar: Sidebar,
 };
 
 export interface NavbarProps {
