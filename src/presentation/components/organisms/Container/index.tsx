@@ -30,7 +30,7 @@ const Container = (props: ContainerProps) => {
 
   return (
     <VStack
-      backgroundColor={pallate.whiteout['02']}
+      backgroundColor={pallate.whiteout['01']}
       fill
       as={<SafeAreaView edges={edges} />}>
       <StatusBar

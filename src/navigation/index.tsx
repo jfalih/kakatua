@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {RoutesItemType, routes} from './routes';
+import routes, {RoutesItemType} from './routes';
 import RNBootSplash from 'react-native-bootsplash';
 import {useAuth} from '../services/context/Auth/Auth.context';
 import AuthNavigation from './AuthNavigation';

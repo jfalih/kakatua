@@ -2,7 +2,6 @@ import React, {Ref, useMemo} from 'react';
 import Image, {ImageProps} from '../Image';
 import {View} from 'react-native/types';
 import Animated from 'react-native-reanimated';
-import {moderateScale} from '../../../../core/utils/scale';
 
 type SizeType = 'small' | 'medium' | 'large';
 
@@ -19,20 +18,20 @@ const Avatar = React.memo(
       switch (size) {
         case 'medium':
           sizeTranslator = {
-            width: moderateScale(34),
-            height: moderateScale(34),
+            width: 34,
+            height: 34,
           };
           break;
         case 'large':
           sizeTranslator = {
-            width: moderateScale(50),
-            height: moderateScale(50),
+            width: 50,
+            height: 50,
           };
           break;
         default:
           sizeTranslator = {
-            width: moderateScale(22),
-            height: moderateScale(2),
+            width: 22,
+            height: 2,
           };
           break;
       }

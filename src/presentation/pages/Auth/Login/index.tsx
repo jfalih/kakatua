@@ -13,8 +13,9 @@ import {Controller, useForm} from 'react-hook-form';
 import {useAuth} from '../../../../services/context/Auth/Auth.context';
 import Toast from 'react-native-toast-message';
 import {Flex} from '../../../components/atoms/Layout';
-import {LogoApple, LogoGoogle} from '../../../../assets';
+import {LogoApple, LogoFacebook, LogoGoogle} from '../../../../assets';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -66,6 +67,7 @@ const Login = ({navigation}: Props) => {
       const user = await auth().signInWithCredential(googleCredential);
       console.log(user);
     } catch (e) {
+      console.log(e);
       Toast.show({
         type: 'error',
         text1: 'Hmm, kami nemu error nih!',
@@ -83,7 +85,6 @@ const Login = ({navigation}: Props) => {
       backgroundColor={pallate.whiteout['01']}
       padding={{
         paddingHorizontal: spacing.extraLarge,
-        paddingVertical: spacing.large,
       }}>
       <VStack spacing={spacing.small}>
         <Text
@@ -208,7 +209,7 @@ const Login = ({navigation}: Props) => {
             borderWidth={1}
             borderRadius={8}
             borderColor={pallate.whiteout['02']}>
-            <LogoGoogle />
+            <LogoFacebook />
           </Pressable>
         </HStack>
         <HStack self="center" spacing={spacing.tiny}>

@@ -15,13 +15,12 @@ const Section = (props: SectionProps) => {
   return (
     <VStack spacing={spacing.medium}>
       <HStack padding={{paddingHorizontal: spacing.large}}>
-        <VStack>
-          <Text type="title" weight="02">
+        <VStack spacing={spacing.small}>
+          <Text type="title" weight="01">
             {title}
           </Text>
-          <Text color={pallate.neutral['04']}>{description}</Text>
+          <Text color={pallate.blackout['01']}>{description}</Text>
         </VStack>
-        {/* TODO Add Button Here */}
       </HStack>
       {children}
     </VStack>

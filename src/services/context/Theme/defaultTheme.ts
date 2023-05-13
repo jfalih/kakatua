@@ -40,7 +40,7 @@ const typography = {
       fontFamily: 'Lexend-SemiBold',
       fontWeight: '600',
       fontSize: 12,
-      lineHeihgt: 15,
+      lineHeight: 15,
     },
     appBar: {
       fontFamily: 'Lexend-Bold',

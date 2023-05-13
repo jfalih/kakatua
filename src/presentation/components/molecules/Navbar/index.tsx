@@ -1,10 +1,12 @@
 import React from 'react';
 import Logo from './Logo';
 import Back, {BackProps} from './Back';
+import Default from './Default';
 
 const Components = {
   logo: Logo,
   back: Back,
+  default: Default,
 };
 
 export interface NavbarProps {

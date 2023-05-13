@@ -33,7 +33,7 @@ const BottomTabBar = props => {
         borderRadius={50}
         items="center"
         width={width - spacing.standard * 2}
-        backgroundColor={pallate.whiteout['01']}>
+        backgroundColor={pallate.blackout['05']}>
         {state.routes.map((route, index) => {
           const {options} = descriptors[route.key];
           const {
@@ -59,7 +59,9 @@ const BottomTabBar = props => {
 
             return tabBarIcon({
               focused: isFocused,
-              color: isFocused ? pallate.yellow['03'] : pallate.blackout['04'],
+              color: isFocused
+                ? pallate.whiteout['01']
+                : pallate.blackout['01'],
               size: 26,
             });
           };
@@ -101,7 +103,7 @@ const BottomTabBar = props => {
                 backgroundColor={pallate.yellow['03']}>
                 {tabBarIcon({
                   focused: isFocused,
-                  color: pallate.whiteout['01'],
+                  color: pallate.blackout['05'],
                   size: 26,
                 })}
               </Pressable>
@@ -112,6 +114,7 @@ const BottomTabBar = props => {
             <Pressable
               key={route.key}
               fill
+              height={40}
               direction="column"
               items="center"
               justify="center"
@@ -122,14 +125,6 @@ const BottomTabBar = props => {
               onPress={onPress}
               onLongPress={onLongPress}>
               {iconComp()}
-              <Text
-                color={
-                  isFocused ? pallate.yellow['03'] : pallate.blackout['04']
-                }
-                type="caption"
-                weight={isFocused ? 'tabItem' : '01'}>
-                {label}
-              </Text>
             </Pressable>
           );
         })}

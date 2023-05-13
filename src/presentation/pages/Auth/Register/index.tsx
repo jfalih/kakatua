@@ -13,7 +13,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {useAuth} from '../../../../services/context/Auth/Auth.context';
 import Toast from 'react-native-toast-message';
 import {Flex} from '../../../components/atoms/Layout';
-import {LogoApple, LogoGoogle} from '../../../../assets';
+import {LogoApple, LogoFacebook, LogoGoogle} from '../../../../assets';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -24,27 +24,40 @@ const Register = ({navigation}: Props) => {
   const {
     control,
     handleSubmit,
+    watch,
     formState: {isSubmitting},
+    reset,
   } = useForm({
     mode: 'all',
     defaultValues: {
       email: '',
+      fullname: '',
       password: '',
+      confirm_password: '',
     },
   });
 
-  const handleLogin = handleSubmit(async data => {
+  const handleRegister = handleSubmit(async data => {
     try {
-      const res = await auth().signInWithEmailAndPassword(
-        data.email,
-        data.password,
-      );
-      if (res.user.emailVerified) {
-        handleUser(res.user);
-        navigation.navigate('BottomNavigation');
-      } else {
-        navigation.navigate('Auth', {screen: 'EmailVerification'});
+      await auth().createUserWithEmailAndPassword(data.email, data.password);
+      const user = auth().currentUser;
+      if (user) {
+        await user.updateProfile({
+          displayName: data.fullname,
+        });
+        await user?.sendEmailVerification();
+        reset();
+        Toast.show({
+          type: 'success',
+          text1: 'Yey, berhasil nih!',
+          text2: 'Kamu berhasil mendaftarkan akun, silahkan login ya..!',
+        });
       }
+      Toast.show({
+        type: 'error',
+        text1: 'Hmm, kami nemu error nih!',
+        text2: e?.message || 'Server sedang sibuk...',
+      });
     } catch (e: any) {
       Toast.show({
         type: 'error',
@@ -54,19 +67,27 @@ const Register = ({navigation}: Props) => {
     }
   });
 
-  const handleRegister = useCallback(() => {
+  const handleLogin = useCallback(() => {
     navigation.navigate('Register');
   }, [navigation]);
 
   const handleGoogleLogin = useCallback(async () => {
     try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
+      await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
+      const {idToken} = await GoogleSignin.signIn();
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      const user = await auth().signInWithCredential(googleCredential);
+      console.log(user);
     } catch (e) {
-      console.log(e?.message);
+      console.log(e);
+      Toast.show({
+        type: 'error',
+        text1: 'Hmm, kami nemu error nih!',
+        text2: e?.message || 'Server sedang sibuk...',
+      });
     }
   }, []);
+
   return (
     <Container
       fill
@@ -77,20 +98,45 @@ const Register = ({navigation}: Props) => {
       backgroundColor={pallate.whiteout['01']}
       padding={{
         paddingHorizontal: spacing.extraLarge,
-        paddingVertical: spacing.large,
       }}>
       <VStack spacing={spacing.small}>
         <Text
           type="title"
           color={pallate.blackout['05']}
           weight="01"
-          text="Masuk"
+          text="Daftar"
         />
         <Text type="body" color={pallate.blackout['01']} weight="01">
-          Selamat datang 👋
+          Ayo buat akun mu, dan rasakan pengalaman berwisata keliling dunia
+          bersama kami.
         </Text>
       </VStack>
       <VStack spacing={spacing.standard}>
+        <Controller
+          control={control}
+          rules={{
+            required: {
+              value: true,
+              message: 'Diisi dulu ya, nama lengkap kamu biar kenal.',
+            },
+          }}
+          render={({field: {onChange, onBlur, value}, fieldState: {error}}) => (
+            <Input
+              icon={{
+                name: 'IconUser',
+                color: pallate.blackout['05'],
+                size: 20,
+              }}
+              editable={!isSubmitting}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              placeholder="Nama Lengkap"
+              error={error?.message}
+            />
+          )}
+          name="fullname"
+        />
         <Controller
           control={control}
           rules={{
@@ -107,13 +153,13 @@ const Register = ({navigation}: Props) => {
             <Input
               icon={{
                 name: 'IconAt',
-                color: pallate.blackout['01'],
+                color: pallate.blackout['05'],
                 size: 20,
               }}
+              editable={!isSubmitting}
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
-              editable={!isSubmitting}
               keyboardType="email-address"
               autoCapitalize="none"
               placeholder="Alamat Email"
@@ -127,32 +173,69 @@ const Register = ({navigation}: Props) => {
           rules={{
             required: {
               value: true,
-              message: 'Diisi dulu ya, alamat email kamu.',
+              message: 'Diisi dulu ya, password kamu.',
+            },
+            minLength: {
+              value: 6,
+              message: 'Minimal panjangnya 6, biar aman..',
             },
           }}
           render={({field: {onChange, onBlur, value}, fieldState: {error}}) => (
             <Input
               icon={{
                 name: 'IconLock',
-                color: pallate.blackout['01'],
+                color: pallate.blackout['05'],
                 size: 20,
               }}
               editable={!isSubmitting}
+              value={value}
               onChangeText={onChange}
               onBlur={onBlur}
-              value={value}
               secureTextEntry
+              textContentType="oneTimeCode"
               placeholder="Password"
               error={error?.message}
             />
           )}
           name="password"
         />
+        <Controller
+          control={control}
+          rules={{
+            required: {
+              value: true,
+              message: 'Diisi dulu ya, konfirmasi password kamu.',
+            },
+            validate: (val: string) => {
+              if (watch('password') !== val) {
+                return 'Konfirmasi password kamu gak cocok nih..';
+              }
+            },
+          }}
+          render={({field: {onChange, onBlur, value}, fieldState: {error}}) => (
+            <Input
+              icon={{
+                name: 'IconLock',
+                color: pallate.blackout['05'],
+                size: 20,
+              }}
+              editable={!isSubmitting}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              secureTextEntry
+              textContentType="oneTimeCode"
+              placeholder="Konfirmasi Password"
+              error={error?.message}
+            />
+          )}
+          name="confirm_password"
+        />
       </VStack>
       <Button
         isLoading={isSubmitting}
         disabled={isSubmitting}
-        onPress={handleLogin}
+        onPress={handleRegister}
         self="stretch"
         backgroundColor={pallate.yellow['03']}
         borderRadius={12}
@@ -162,14 +245,14 @@ const Register = ({navigation}: Props) => {
         text={{
           type: 'button',
           weight: '02',
-          text: 'Masuk',
+          text: 'Register',
           color: pallate.blackout['05'],
         }}
       />
       <VStack spacing={spacing.large}>
         <HStack spacing={spacing.standard} width={'100%'} items="center">
           <Flex height={1} fill backgroundColor={pallate.whiteout['03']} />
-          <Text color={pallate.whiteout['04']} text={'Atau masuk dengan'} />
+          <Text color={pallate.whiteout['04']} text={'Atau daftar dengan'} />
           <Flex height={1} fill backgroundColor={pallate.whiteout['03']} />
         </HStack>
         <HStack justify="space-between">
@@ -202,13 +285,13 @@ const Register = ({navigation}: Props) => {
             borderWidth={1}
             borderRadius={8}
             borderColor={pallate.whiteout['02']}>
-            <LogoGoogle />
+            <LogoFacebook />
           </Pressable>
         </HStack>
         <HStack self="center" spacing={spacing.tiny}>
-          <Text>Kamu belum memiliki akun?</Text>
-          <Pressable onPress={handleRegister}>
-            <Text underline>Daftar</Text>
+          <Text>Already have an account?</Text>
+          <Pressable onPress={handleLogin}>
+            <Text underline>Login</Text>
           </Pressable>
         </HStack>
       </VStack>
