@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "343487870638-05u7143lnrtn2bnq1uagp30bim5bf62d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kakatua",
+            "certificate_hash": "44ecf14966dbc1d91807a76b8cf0ed0277383458"
+          }
+        },
+        {
           "client_id": "343487870638-tbe0b47v3j4fomq4r5i2f7oh15bdv9q1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

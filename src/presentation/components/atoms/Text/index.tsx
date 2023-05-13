@@ -55,7 +55,7 @@ const Text: React.FC<TextProps> = React.memo(
       return {
         ...typography[type][weight],
         flex: fill ? 1 : undefined,
-        color: color || pallate.neutral['05'],
+        color: color || pallate.blackout['05'],
         textDecorationLine,
         textAlign: align,
       };

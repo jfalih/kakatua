@@ -29,7 +29,7 @@ const Button: React.FC<ButtonProps> = props => {
       borderRadius={30}
       {...rest}>
       {isLoading ? (
-        <ActivityIndicator size={'small'} color={pallate.neutral['01']} />
+        <ActivityIndicator size={'small'} color={pallate.whiteout['01']} />
       ) : (
         <HStack spacing={spacing || themeSpacing.small} items="center">
           {(leading || icon) && icon ? (

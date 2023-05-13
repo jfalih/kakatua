@@ -30,12 +30,12 @@ const Container = (props: ContainerProps) => {
 
   return (
     <VStack
-      backgroundColor={pallate.neutral['02']}
+      backgroundColor={pallate.whiteout['02']}
       fill
       as={<SafeAreaView edges={edges} />}>
       <StatusBar
         barStyle={'dark-content'}
-        backgroundColor={pallate.neutral['01']}
+        backgroundColor={pallate.whiteout['01']}
       />
       <ScrollProvider
         contentOffset={{

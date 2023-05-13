@@ -29,12 +29,7 @@ export type Elevation =
   | 24;
 export type Elevations = Record<Elevation, ViewStyle | TextStyle | ImageStyle>;
 
-export type PaletteColorName =
-  | 'primary'
-  | 'neutral'
-  | 'warning'
-  | 'danger'
-  | 'info';
+export type PaletteColorName = 'blackout' | 'whiteout' | 'yellow';
 export type PaletteNumber = '01' | '02' | '03' | '04' | '05';
 export type PaletteColor = Record<PaletteNumber, string>;
 export type Palette = Record<PaletteColorName, PaletteColor>;

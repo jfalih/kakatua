@@ -5,10 +5,16 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {AuthProvider} from './Auth/Auth.provider';
 import Toast from 'react-native-toast-message';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const queryClient = new QueryClient();
 
 const Provider = () => {
+  GoogleSignin.configure({
+    webClientId:
+      '343487870638-3egvlfdn044n0vu6lhhdu3e80h0balkl.apps.googleusercontent.com',
+    offlineAccess: true,
+  });
   return (
     <ThemeProvider>
       <SafeAreaProvider>

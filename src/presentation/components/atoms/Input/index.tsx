@@ -40,7 +40,7 @@ const Input = React.memo(
         backgroundColor: interpolateColor(
           error ? 1 : 0,
           [0, 1],
-          [backgroundColor || pallate.neutral['02'], pallate.danger['01']],
+          [backgroundColor || pallate.whiteout['02'], pallate.red['01']],
         ),
       };
     }, [error]);
@@ -55,7 +55,10 @@ const Input = React.memo(
             style={animatedSearchStyle}
             borderRadius={12}
             padding={{
-              paddingLeft: leading || icon ? spacing.large * 2 : spacing.large,
+              paddingLeft:
+                leading || icon
+                  ? spacing.standard + (icon?.size || 14) + spacing.standard
+                  : spacing.large,
               paddingRight: trailing && spacing.large * 2,
             }}
             height={50}
@@ -66,7 +69,7 @@ const Input = React.memo(
                 }}
                 value={value}
                 numberOfLines={1}
-                placeholderTextColor={pallate.neutral['04']}
+                placeholderTextColor={pallate.whiteout['05']}
                 placeholder={placeholder}
               />
             }
@@ -97,7 +100,7 @@ const Input = React.memo(
           )}
         </Flex>
         {error && (
-          <Text type="body" weight="02" color={pallate.danger['03']}>
+          <Text type="body" weight="02" color={pallate.red['03']}>
             {error}
           </Text>
         )}

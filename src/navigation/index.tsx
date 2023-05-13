@@ -28,7 +28,7 @@ const Navigation = () => {
             component={AuthNavigation}
           />
         )}
-        {routes.map((res: RoutesItemType, _) => (
+        {routes?.map((res: RoutesItemType, _) => (
           <Stack.Screen
             key={res.key}
             name={res.name}

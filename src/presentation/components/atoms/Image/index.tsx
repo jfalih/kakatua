@@ -21,7 +21,7 @@ const Image = React.memo(
       <Flex
         ref={ref}
         style={{aspectRatio}}
-        backgroundColor={pallate.neutral['02']}
+        backgroundColor={pallate.whiteout['02']}
         as={
           <FastImage
             defaultSource={defaultSrc}

@@ -1,4 +1,5 @@
 {
   "name": "kakatua",
-  "displayName": "kakatua"
+  "displayName": "kakatua",
+  "plugins": ["@react-native-google-signin/google-signin"]
 }

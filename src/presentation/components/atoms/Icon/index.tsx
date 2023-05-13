@@ -22,8 +22,8 @@ const Icon = React.memo((props: IconProps) => {
     if (color) {
       return color;
     }
-    return pallate.neutral['05'];
-  }, [color, pallate.neutral]);
+    return pallate.blackout['05'];
+  }, [color, pallate.blackout]);
 
   return <IconComponents size={size} color={iconColor} stroke={stroke || 2} />;
 });
