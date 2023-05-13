@@ -8,6 +8,7 @@ import Container from '../../presentation/components/organisms/Container';
 import Home from '../../presentation/pages/Home';
 import Search from '../../presentation/pages/Search';
 import Ticket from '../../presentation/pages/Ticket';
+import Scan from '../../presentation/pages/Scan';
 
 const Tab = createBottomTabNavigator();
 
@@ -45,7 +46,7 @@ const BottomNavigation = () => {
           ),
         }}
         name="Scan"
-        component={() => <Container />}
+        component={Scan}
       />
       <Tab.Screen
         options={{

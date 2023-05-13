@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 const usePlaces = (search?: string) => {
   const [data, setData] = useState<any[]>([]);
@@ -57,5 +57,68 @@ const usePlace = (place?: string) => {
   };
 };
 
-export {usePlace};
+const useShop = (place?: string) => {
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let query = firestore().collection('shop');
+
+    if (place) {
+      const placeRef = firestore().collection('places').doc(place);
+      query = query.where('lokasi', '==', placeRef);
+    }
+    query.onSnapshot(querySnapshot => {
+      const data = [];
+
+      querySnapshot.forEach(documentSnapshot => {
+        data.push({
+          ...documentSnapshot.data(),
+          key: documentSnapshot.id,
+        });
+      });
+
+      setData(data);
+      setLoading(false);
+    });
+  }, [place]);
+
+  return {
+    loading,
+    data,
+  };
+};
+
+const useFoods = (place?: string) => {
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let query = firestore().collection('foods');
+
+    if (place) {
+      const placeRef = firestore().collection('places').doc(place);
+      query = query.where('lokasi', '==', placeRef);
+    }
+    query.onSnapshot(querySnapshot => {
+      const data = [];
+
+      querySnapshot.forEach(documentSnapshot => {
+        data.push({
+          ...documentSnapshot.data(),
+          key: documentSnapshot.id,
+        });
+      });
+
+      setData(data);
+      setLoading(false);
+    });
+  }, [place]);
+
+  return {
+    loading,
+    data,
+  };
+};
+export { usePlace, useShop, useFoods };
 export default usePlaces;
