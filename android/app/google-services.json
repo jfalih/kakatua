@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "343487870638",
+    "project_id": "kakatua-22f6d",
+    "storage_bucket": "kakatua-22f6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343487870638:android:f203840a302b3eefd8df3f",
+        "android_client_info": {
+          "package_name": "com.kakatua"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343487870638-tbe0b47v3j4fomq4r5i2f7oh15bdv9q1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kakatua",
+            "certificate_hash": "0e1f10fd51ead24c478aa45c108800c6331e8b5f"
+          }
+        },
+        {
+          "client_id": "343487870638-3egvlfdn044n0vu6lhhdu3e80h0balkl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHKYG76BVAkxSaCwDcYKojIzc6f2D9vcE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343487870638-3egvlfdn044n0vu6lhhdu3e80h0balkl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
