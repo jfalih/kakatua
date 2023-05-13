@@ -8,6 +8,7 @@ import Container from '../../presentation/components/organisms/Container';
 import Home from '../../presentation/pages/Home';
 import Search from '../../presentation/pages/Search';
 import Ticket from '../../presentation/pages/Ticket';
+import Profile from '../../presentation/pages/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -65,7 +66,7 @@ const BottomNavigation = () => {
           unmountOnBlur: true,
         }}
         name="User"
-        component={() => <Container />}
+        component={Profile}
       />
     </Tab.Navigator>
   );
