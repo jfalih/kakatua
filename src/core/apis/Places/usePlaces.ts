@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 const usePlaces = (search?: string) => {
   const [data, setData] = useState<any[]>([]);
@@ -120,5 +120,30 @@ const useFoods = (place?: string) => {
     data,
   };
 };
-export { usePlace, useShop, useFoods };
+
+const useLandmark = (landmark?: string) => {
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let query = firestore()
+      .collection('places')
+      .where('apiName', '==', landmark);
+    query.onSnapshot(querySnapshot => {
+      querySnapshot.forEach(documentSnapshot => {
+        setData({
+          ...documentSnapshot.data(),
+          key: documentSnapshot.id,
+        });
+      });
+      setLoading(false);
+    });
+  }, [landmark]);
+
+  return {
+    data,
+    loading,
+  };
+};
+export {usePlace, useShop, useLandmark, useFoods};
 export default usePlaces;

@@ -77,7 +77,7 @@ const Detail = ({route}) => {
             padding={{paddingHorizontal: spacing.extraLarge}}>
             <Divider color={pallate.whiteout['03']} thickness={1} />
             <HStack justify="space-between" fill>
-              {place?.images.map(val => (
+              {place?.images?.map(val => (
                 <Image
                   width={72}
                   height={72}
@@ -190,8 +190,8 @@ const Detail = ({route}) => {
                   rotateEnabled={false}
                   pitchEnabled={false}
                   initialRegion={{
-                    latitude: Number(place.map[0]),
-                    longitude: Number(place.map[1]),
+                    latitude: Number(place?.map?.[0]),
+                    longitude: Number(place?.map?.[1]),
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                   }}

@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import {useCallback, useEffect, useState} from 'react';
 import Container from '../../components/organisms/Container';
-import {Flex} from '../../components/atoms/Layout';
+import {Box, Flex} from '../../components/atoms/Layout';
 import Pressable from '../../components/atoms/Pressable';
 import {useTheme} from '../../../services/context/Theme/Theme.context';
 import {launchImageLibrary} from 'react-native-image-picker';
@@ -14,6 +14,9 @@ import Image from '../../components/atoms/Image';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import {useAuth} from '../../../services/context/Auth/Auth.context';
+import {Toast} from 'react-native-toast-message/lib/src/Toast';
+import Icon from '../../components/atoms/Icon';
+import {useLandmark} from '../../../core/apis/Places/usePlaces';
 
 const Scan = ({navigation}) => {
   const [uri, setUri] = useState<string>();
@@ -31,12 +34,21 @@ const Scan = ({navigation}) => {
       await reference.putFile(uri);
 
       const url = await reference.getDownloadURL();
-      const postData = await firestore().collection('diagnosis').add({
+      await firestore().collection('diagnosis').add({
         user_id: user?.uid,
         landmark,
         image: url,
       });
-      console.log(landmark);
+      if (landmark) {
+        firestore()
+          .collection('places')
+          .where('apiName', '==', landmark)
+          .get()
+          .then(querySnapshot => {
+            navigation.navigate('Detail', {id: querySnapshot.id});
+            return;
+          });
+      }
     },
   });
 
@@ -53,6 +65,33 @@ const Scan = ({navigation}) => {
     setUri(url);
     setImage(file.name);
     mutate(data);
+  }, [mutate]);
+
+  const onPressLibrary = useCallback(async () => {
+    try {
+      const result = await launchImageLibrary({
+        mediaType: 'photo',
+      });
+      if (result?.assets) {
+        const {uri, fileName} = result.assets[0];
+        const data = new FormData();
+        const url = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+        data.append('file', {
+          name: fileName,
+          type: 'image/jpeg',
+          uri: url,
+        });
+        setUri(url);
+        setImage(fileName);
+        mutate(data);
+      }
+    } catch (e) {
+      Toast.show({
+        type: 'error',
+        text1: 'Hmm, kami nemu error nih!',
+        text2: e?.message || 'Server sedang sibuk...',
+      });
+    }
   }, [mutate]);
 
   return (
@@ -119,7 +158,7 @@ const Scan = ({navigation}) => {
       {!isLoading && (
         <Flex
           width="100%"
-          justify="center"
+          justify="space-between"
           items="center"
           padding={{
             paddingHorizontal: spacing.large,
@@ -127,6 +166,7 @@ const Scan = ({navigation}) => {
           position={{
             bottom: 40,
           }}>
+          <Box width={40} />
           <Pressable
             onPress={onPressScanned}
             padding={spacing.small}
@@ -138,6 +178,9 @@ const Scan = ({navigation}) => {
               backgroundColor={pallate.whiteout['01']}
               height={70}
             />
+          </Pressable>
+          <Pressable onPress={onPressLibrary} self="center">
+            <Icon name="IconPhoto" size={40} color={pallate.whiteout['01']} />
           </Pressable>
         </Flex>
       )}
