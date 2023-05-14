@@ -21,21 +21,22 @@ const Navigation = () => {
           orientation: 'portrait',
           gestureDirection: 'horizontal',
         }}>
-        {(!user || !user?.emailVerified) && (
+        {!user || !user?.emailVerified ? (
           <Stack.Screen
             key={'routes-999'}
             name={'Auth'}
             component={AuthNavigation}
           />
+        ) : (
+          routes?.map((res: RoutesItemType, _) => (
+            <Stack.Screen
+              key={res.key}
+              name={res.name}
+              options={res.options}
+              component={res.component}
+            />
+          ))
         )}
-        {routes?.map((res: RoutesItemType, _) => (
-          <Stack.Screen
-            key={res.key}
-            name={res.name}
-            options={res.options}
-            component={res.component}
-          />
-        ))}
       </Stack.Navigator>
     </NavigationContainer>
   );

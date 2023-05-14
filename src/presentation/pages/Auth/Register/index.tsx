@@ -53,12 +53,10 @@ const Register = ({navigation}: Props) => {
           text1: 'Yey, berhasil nih!',
           text2: 'Kamu berhasil mendaftarkan akun, silahkan login ya..!',
         });
+        if (!user?.emailVerified) {
+          navigation.navigate('EmailVerification');
+        }
       }
-      Toast.show({
-        type: 'error',
-        text1: 'Hmm, kami nemu error nih!',
-        text2: e?.message || 'Server sedang sibuk...',
-      });
     } catch (e: any) {
       Toast.show({
         type: 'error',
@@ -78,9 +76,7 @@ const Register = ({navigation}: Props) => {
       const {idToken} = await GoogleSignin.signIn();
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       const user = await auth().signInWithCredential(googleCredential);
-      console.log(user);
     } catch (e) {
-      console.log(e);
       Toast.show({
         type: 'error',
         text1: 'Hmm, kami nemu error nih!',

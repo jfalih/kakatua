@@ -36,7 +36,7 @@ const EmailVerification = ({navigation}) => {
 
   return (
     <Container
-      backgroundColor={pallate.neutral['01']}
+      backgroundColor={pallate.whiteout['01']}
       padding={spacing.large}
       spacing={spacing.standard}
       justify="center"
@@ -58,7 +58,7 @@ const EmailVerification = ({navigation}) => {
       <Button
         onPress={handleCheckVerification}
         self="stretch"
-        backgroundColor={pallate.primary['03']}
+        backgroundColor={pallate.yellow['03']}
         borderRadius={12}
         height={50}
         items="center"
@@ -67,7 +67,7 @@ const EmailVerification = ({navigation}) => {
           type: 'button',
           weight: '02',
           text: 'Check Verification',
-          color: pallate.neutral['01'],
+          color: pallate.blackout['05'],
         }}
       />
     </Container>

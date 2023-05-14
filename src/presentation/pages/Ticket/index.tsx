@@ -84,8 +84,15 @@ const Ticket = ({navigation}) => {
                       </Text>
                       <Text>{item?.city}</Text>
                     </VStack>
-                    <Text type="title" weight="06">
-                      {item?.status}
+                    <Text
+                      color={
+                        item?.status === 'unpaid'
+                          ? pallate.red['05']
+                          : pallate.blackout['05']
+                      }
+                      type="title"
+                      weight="06">
+                      {item?.status.toUpperCase()}
                     </Text>
                   </HStack>
                   <Divider thickness={1} color={pallate.whiteout['03']} />
@@ -101,7 +108,7 @@ const Ticket = ({navigation}) => {
                       </Text>
                     </HStack>
                     <Text type="title" weight="05">
-                      Rp{item?.total}
+                      {currency(item?.total)}
                     </Text>
                   </HStack>
                   <HStack>

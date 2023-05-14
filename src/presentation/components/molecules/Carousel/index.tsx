@@ -7,6 +7,8 @@ import {useTheme} from '../../../../services/context/Theme/Theme.context';
 import {ImageBackground, StyleSheet} from 'react-native';
 import Text from '../../atoms/Text';
 import Image from '../../atoms/Image';
+import Icon from '../../atoms/Icon';
+import { useNavigation } from '@react-navigation/native';
 
 interface CarouselProps extends PagerViewProps {
   data: [];
@@ -19,6 +21,7 @@ const Carousel = (props: CarouselProps) => {
   const {pallate, spacing} = useTheme();
   const [page, setPage] = useState(0);
   const pageViewRef = useRef();
+  const navigation = useNavigation();
   const timeout = useRef<number>();
   const stopAutoSlide = useCallback(() => {
     if (timeout.current) {
@@ -67,32 +70,47 @@ const Carousel = (props: CarouselProps) => {
           </Flex>
         ))}
       </PagerView>
-      <HStack
+      <VStack
         position={{
           top: 0,
         }}
         backgroundColor={'rgba(0,0,0,0.4)'}
         width={'100%'}
         height={'100%'}
-        items="flex-end"
         justify="space-between"
         padding={{
           paddingTop: spacing.large,
           paddingBottom: spacing.large * 2 + spacing.standard,
           paddingHorizontal: spacing.large,
         }}>
-        <VStack>
-          <Text color={pallate.whiteout['01']} type="title" weight="01">
-            {name}
+        <Pressable
+          onPress={() => navigation.goBack()}
+          width={30}
+          height={30}
+          borderRadius={20}
+          items="center"
+          justify="center"
+          backgroundColor={pallate.whiteout['01']}>
+          <Icon
+            name="IconChevronLeft"
+            size={24}
+            color={pallate.blackout['05']}
+          />
+        </Pressable>
+        <HStack width={'100%'} items="flex-end" justify="space-between">
+          <VStack>
+            <Text color={pallate.whiteout['01']} type="title" weight="01">
+              {name}
+            </Text>
+            <Text color={pallate.whiteout['01']} type="title" weight="05">
+              {city}
+            </Text>
+          </VStack>
+          <Text type="title" weight="05" color={pallate.whiteout['01']}>
+            {prices}
           </Text>
-          <Text color={pallate.whiteout['01']} type="title" weight="05">
-            {city}
-          </Text>
-        </VStack>
-        <Text type="title" weight="05" color={pallate.whiteout['01']}>
-          {prices}
-        </Text>
-      </HStack>
+        </HStack>
+      </VStack>
       <HStack
         spacing={spacing.small}
         position={{

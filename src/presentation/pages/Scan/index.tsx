@@ -36,8 +36,19 @@ const Scan = ({navigation}) => {
           .where('apiName', '==', landmark)
           .get()
           .then(querySnapshot => {
-            querySnapshot.forEach(documentSnapshot => {
-              navigation.navigate('Detail', {id: documentSnapshot.id});
+            if (querySnapshot.size > 0) {
+              querySnapshot.forEach(documentSnapshot => {
+                navigation.navigate('Detail', {id: documentSnapshot.id});
+              });
+            } else {
+              throw 'not found';
+            }
+          })
+          .catch(e => {
+            Toast.show({
+              type: 'error',
+              text1: 'Hmm, kami nemu error nih!',
+              text2: 'Kami tidak menemukan landmark',
             });
           });
       }

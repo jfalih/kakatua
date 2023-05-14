@@ -21,6 +21,7 @@ import useBanners from '../../../core/apis/Banners/useBanners';
 import usePlaces from '../../../core/apis/Places/usePlaces';
 import {ImageBackground, ScrollView} from 'react-native';
 import usePopuler from '../../../core/apis/Populer/usePopuler';
+import currency from '../../../core/utils/currency';
 const Home = ({navigation}) => {
   const {user} = useAuth();
   const {spacing, pallate} = useTheme();
@@ -300,6 +301,47 @@ const Home = ({navigation}) => {
           </ScrollView>
         </Section>
       )}
+      <Section
+        title="Lokasi favorit"
+        description="Lokasi favorit yang sering dijadikan destinasi wisata.">
+        <Flex height={280}>
+          <FlashList
+            contentContainerStyle={{
+              paddingHorizontal: spacing.extraLarge,
+            }}
+            ItemSeparatorComponent={() => (
+              <Divider horizontal thickness={spacing.large} />
+            )}
+            renderItem={({item}) => (
+              <Pressable
+                key={item.key}
+                onPress={() =>
+                  navigation.navigate('Detail', {
+                    id: item.key,
+                  })
+                }
+                width={137}>
+                <VStack spacing={spacing.small}>
+                  <Image
+                    width={137}
+                    borderRadius={16}
+                    height={180}
+                    source={{
+                      uri: item.image,
+                    }}
+                  />
+                  <Text type="title" weight="04">
+                    {item.name}
+                  </Text>
+                  <Text>{currency(item.price)}</Text>
+                </VStack>
+              </Pressable>
+            )}
+            horizontal
+            data={places}
+          />
+        </Flex>
+      </Section>
     </Container>
   );
 };
