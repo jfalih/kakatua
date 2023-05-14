@@ -13,7 +13,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {useAuth} from '../../../../services/context/Auth/Auth.context';
 import Toast from 'react-native-toast-message';
 import {Flex} from '../../../components/atoms/Layout';
-import {LogoApple, LogoFacebook, LogoGoogle} from '../../../../assets';
+import {Logo, LogoApple, LogoFacebook, LogoGoogle} from '../../../../assets';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 
@@ -129,15 +129,18 @@ const Register = ({navigation}: Props) => {
   return (
     <Container
       fill
-      navbar={{
-        type: 'back',
-      }}
       spacing={spacing.medium}
       backgroundColor={pallate.whiteout['01']}
       padding={{
+        paddingVertical: spacing.large,
         paddingHorizontal: spacing.extraLarge,
       }}>
-      <VStack spacing={spacing.small}>
+      <Logo height={40} width={120} />
+      <VStack
+        padding={{
+          paddingTop: spacing.large,
+        }}
+        spacing={spacing.small}>
         <Text
           type="title"
           color={pallate.blackout['05']}

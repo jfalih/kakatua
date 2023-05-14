@@ -9,6 +9,7 @@ import Home from '../../presentation/pages/Home';
 import Search from '../../presentation/pages/Search';
 import Ticket from '../../presentation/pages/Ticket';
 import Scan from '../../presentation/pages/Scan';
+import Profile from '../../presentation/pages/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -65,8 +66,8 @@ const BottomNavigation = () => {
           ),
           unmountOnBlur: true,
         }}
-        name="User"
-        component={() => <Container />}
+        name="Profile"
+        component={Profile}
       />
     </Tab.Navigator>
   );

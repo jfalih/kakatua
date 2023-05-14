@@ -1,4 +1,4 @@
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import Container from '../../components/organisms/Container';
 import Carousel from '../../components/molecules/Carousel';
 import BottomSheet, {BottomSheetScrollView} from '@gorhom/bottom-sheet';
@@ -16,8 +16,10 @@ import {LogoMapPin} from '../../../assets';
 import Pressable from '../../components/atoms/Pressable';
 import {FlatList} from 'react-native-gesture-handler';
 import currency from '../../../core/utils/currency';
-
-const Detail = ({route}) => {
+import firestore from '@react-native-firebase/firestore';
+import {useAuth} from '../../../services/context/Auth/Auth.context';
+import Toast from 'react-native-toast-message';
+const Detail = ({route, navigation}) => {
   const {id} = route.params;
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [quantity, setQuantity] = useState(1);
@@ -29,7 +31,7 @@ const Detail = ({route}) => {
   const {width} = useWindowDimensions();
   const {data: shops} = useShop();
   const {data: foods} = useFoods();
-
+  const {user} = useAuth();
   const total = useMemo(() => {
     if (tour) {
       return place?.price * quantity + 300000;
@@ -37,6 +39,44 @@ const Detail = ({route}) => {
     return place?.price * quantity;
   }, [place?.price, tour, quantity]);
 
+  const handleBookNow = useCallback(async () => {
+    try {
+      const addTicket = await firestore()
+        .collection('tickets')
+        .add({
+          user_id: user?.uid,
+          quantity,
+          total,
+          status: 'unpaid',
+          tour,
+          date: new Date().toLocaleDateString('id-ID'),
+          duration: place?.duration,
+          name: place?.name,
+        });
+      navigation.navigate('Invoice', {
+        id: addTicket.id,
+      });
+      Toast.show({
+        type: 'success',
+        text1: 'Yey, berhasil nih!',
+        text2: 'Kamu berhasil membeli tiket!',
+      });
+    } catch (e) {
+      Toast.show({
+        type: 'error',
+        text1: 'Hmm, kami nemu error nih!',
+        text2: e?.message || 'Server sedang sibuk...',
+      });
+    }
+  }, [
+    navigation,
+    place?.duration,
+    place?.name,
+    quantity,
+    total,
+    tour,
+    user?.uid,
+  ]);
   return (
     <Container>
       <Carousel
@@ -301,6 +341,7 @@ const Detail = ({route}) => {
             </Text>
           </VStack>
           <Pressable
+            onPress={handleBookNow}
             borderRadius={50}
             padding={{
               paddingVertical: spacing.standard,

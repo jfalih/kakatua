@@ -63,74 +63,81 @@ const Ticket = ({navigation}) => {
           data={tickets}
           ListEmptyComponent={ListEmptyComponent}
           ItemSeparatorComponent={() => <Divider thickness={spacing.large} />}
-          renderItem={({item}) => (
-            <Pressable>
-              <VStack
-                borderWidth={1}
-                padding={spacing.large}
-                borderColor={pallate.whiteout['03']}
-                spacing={spacing.standard}
-                width={width - spacing.extraLarge * 2}>
-                <HStack fill>
-                  <VStack fill>
-                    <Text type="title" weight="03">
-                      Snorkeling
-                    </Text>
-                    <Text>Kota Sorong, Papua Barat</Text>
-                  </VStack>
-                  <Text type="title" weight="06">
-                    PAID
-                  </Text>
-                </HStack>
-                <Divider thickness={1} color={pallate.whiteout['03']} />
-                <HStack>
-                  <HStack items="center" spacing={spacing.small} fill>
-                    <Icon
-                      name="IconTag"
-                      size={20}
-                      color={pallate.blackout['05']}
-                    />
-                    <Text type="title" weight="05">
-                      Harga
+          renderItem={({item}) => {
+            return (
+              <Pressable
+                onPress={() =>
+                  navigation.navigate('Invoice', {
+                    id: item.key,
+                  })
+                }>
+                <VStack
+                  borderWidth={1}
+                  padding={spacing.large}
+                  borderColor={pallate.whiteout['03']}
+                  spacing={spacing.standard}
+                  width={width - spacing.extraLarge * 2}>
+                  <HStack fill>
+                    <VStack fill>
+                      <Text type="title" weight="03">
+                        {item?.name}
+                      </Text>
+                      <Text>{item?.city}</Text>
+                    </VStack>
+                    <Text type="title" weight="06">
+                      {item?.status}
                     </Text>
                   </HStack>
-                  <Text type="title" weight="05">
-                    Rp450.000
-                  </Text>
-                </HStack>
-                <HStack>
-                  <HStack items="center" spacing={spacing.small} fill>
-                    <Icon
-                      name="IconCalendarTime"
-                      size={20}
-                      color={pallate.blackout['05']}
-                    />
+                  <Divider thickness={1} color={pallate.whiteout['03']} />
+                  <HStack>
+                    <HStack items="center" spacing={spacing.small} fill>
+                      <Icon
+                        name="IconTag"
+                        size={20}
+                        color={pallate.blackout['05']}
+                      />
+                      <Text type="title" weight="05">
+                        Harga
+                      </Text>
+                    </HStack>
                     <Text type="title" weight="05">
-                      Tanggal
+                      Rp{item?.total}
                     </Text>
                   </HStack>
-                  <Text type="title" weight="05">
-                    12-12-12
-                  </Text>
-                </HStack>
-                <HStack>
-                  <HStack items="center" spacing={spacing.small} fill>
-                    <Icon
-                      name="IconTag"
-                      size={20}
-                      color={pallate.blackout['05']}
-                    />
+                  <HStack>
+                    <HStack items="center" spacing={spacing.small} fill>
+                      <Icon
+                        name="IconCalendarTime"
+                        size={20}
+                        color={pallate.blackout['05']}
+                      />
+                      <Text type="title" weight="05">
+                        Tanggal
+                      </Text>
+                    </HStack>
                     <Text type="title" weight="05">
-                      Durasi
+                      {item?.date.toString()}
                     </Text>
                   </HStack>
-                  <Text type="title" weight="05">
-                    3 Menit
-                  </Text>
-                </HStack>
-              </VStack>
-            </Pressable>
-          )}
+                  <HStack>
+                    <HStack items="center" spacing={spacing.small} fill>
+                      <Icon
+                        name="IconTag"
+                        size={20}
+                        color={pallate.blackout['05']}
+                      />
+                      <Text type="title" weight="05">
+                        Durasi
+                      </Text>
+                    </HStack>
+                    <Text type="title" weight="05">
+                      3 Menit
+                    </Text>
+                  </HStack>
+                </VStack>
+              </Pressable>
+            );
+          }}
         />
       </VStack>
       <VStack

@@ -1,4 +1,6 @@
+import City from '../presentation/pages/City';
 import Detail from '../presentation/pages/Detail';
+import Invoice from '../presentation/pages/Invoice';
 import BottomNavigation from './BottomNavigation';
 
 export type RootStackParamList = {
@@ -17,8 +19,18 @@ const routes = [
   },
   {
     key: 'routes-2',
+    name: 'City',
+    component: City,
+  },
+  {
+    key: 'routes-3',
     name: 'Detail',
     component: Detail,
+  },
+  {
+    key: 'routes-4',
+    name: 'Invoice',
+    component: Invoice,
   },
 ];
 

@@ -21,7 +21,7 @@ const Logo = (props: HStackProps) => {
       backgroundColor: interpolateColor(
         contentOffset?.y.value > 200 ? 1 : 0,
         [0, 1],
-        ['transparent', pallate.neutral['01']],
+        ['transparent', pallate.whitout['01']],
       ),
     };
   }, [contentOffset]);
@@ -41,13 +41,13 @@ const Logo = (props: HStackProps) => {
       <Flex fill />
       <HStack spacing={spacing.medium}>
         <Pressable>
-          <Icon name="IconHeart" size={24} color={pallate.neutral['05']} />
+          <Icon name="IconHeart" size={24} color={pallate.blackout['05']} />
         </Pressable>
         <Pressable>
-          <Icon name="IconBell" size={24} color={pallate.neutral['05']} />
+          <Icon name="IconBell" size={24} color={pallate.blackout['05']} />
         </Pressable>
         <Pressable onPress={handleMessage}>
-          <Icon name="IconMessage" size={24} color={pallate.neutral['05']} />
+          <Icon name="IconMessage" size={24} color={pallate.blackout['05']} />
         </Pressable>
       </HStack>
     </HStackAnimated>

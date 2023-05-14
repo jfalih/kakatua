@@ -21,7 +21,7 @@ import useBanners from '../../../core/apis/Banners/useBanners';
 import usePlaces from '../../../core/apis/Places/usePlaces';
 import {ImageBackground, ScrollView} from 'react-native';
 import usePopuler from '../../../core/apis/Populer/usePopuler';
-const Home = () => {
+const Home = ({navigation}) => {
   const {user} = useAuth();
   const {spacing, pallate} = useTheme();
   const {data: cities} = useCities();
@@ -64,7 +64,12 @@ const Home = () => {
           extraData={cities}
           estimatedItemSize={80}
           renderItem={({item, i}) => (
-            <Pressable>
+            <Pressable
+              onPress={() =>
+                navigation.navigate('City', {
+                  id: item.key,
+                })
+              }>
               <VStackAnimated
                 spacing={spacing.small}
                 items="center"
@@ -123,7 +128,13 @@ const Home = () => {
             }}>
             <VStack spacing={spacing.standard} width={800}>
               <HStack fill spacing={spacing.standard}>
-                <Pressable fill>
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate('Detail', {
+                      id: favorites[0]?.refId,
+                    })
+                  }
+                  fill>
                   <ImageBackground
                     source={{
                       uri: favorites[0]?.image,
@@ -150,7 +161,13 @@ const Home = () => {
                     </Flex>
                   </ImageBackground>
                 </Pressable>
-                <Pressable fill>
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate('Detail', {
+                      id: favorites[1]?.refId,
+                    })
+                  }
+                  fill>
                   <ImageBackground
                     source={{
                       uri: favorites[1]?.image,
@@ -179,7 +196,13 @@ const Home = () => {
                 </Pressable>
               </HStack>
               <HStack fill spacing={spacing.standard}>
-                <Pressable fill>
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate('Detail', {
+                      id: favorites[2]?.refId,
+                    })
+                  }
+                  fill>
                   <ImageBackground
                     source={{
                       uri: favorites[2]?.image,
@@ -206,7 +229,13 @@ const Home = () => {
                     </Flex>
                   </ImageBackground>
                 </Pressable>
-                <Pressable fill>
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate('Detail', {
+                      id: favorites[3]?.refId,
+                    })
+                  }
+                  fill>
                   <ImageBackground
                     source={{
                       uri: favorites[3]?.image,
@@ -233,7 +262,13 @@ const Home = () => {
                     </Flex>
                   </ImageBackground>
                 </Pressable>
-                <Pressable fill>
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate('Detail', {
+                      id: favorites[4]?.refId,
+                    })
+                  }
+                  fill>
                   <ImageBackground
                     source={{
                       uri: favorites[4]?.image,

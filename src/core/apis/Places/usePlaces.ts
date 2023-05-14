@@ -1,12 +1,16 @@
 import {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
-const usePlaces = (search?: string) => {
+const usePlaces = (search?: string, categoryId?: number) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let query = firestore().collection('places');
 
+    if (categoryId) {
+      const catRef = firestore().collection('cities').doc(categoryId);
+      query = query.where('cities', '==', catRef);
+    }
     if (search) {
       query = query
         .where('name', '>=', search)
@@ -25,7 +29,7 @@ const usePlaces = (search?: string) => {
       setData(data);
       setLoading(false);
     });
-  }, [search]);
+  }, [search, categoryId]);
 
   return {
     loading,

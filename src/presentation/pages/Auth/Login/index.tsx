@@ -13,7 +13,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {useAuth} from '../../../../services/context/Auth/Auth.context';
 import Toast from 'react-native-toast-message';
 import {Flex} from '../../../components/atoms/Layout';
-import {LogoApple, LogoFacebook, LogoGoogle} from '../../../../assets';
+import {Logo, LogoApple, LogoFacebook, LogoGoogle} from '../../../../assets';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
 
@@ -65,9 +65,7 @@ const Login = ({navigation}: Props) => {
       const {idToken} = await GoogleSignin.signIn();
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       const user = await auth().signInWithCredential(googleCredential);
-      console.log(user);
     } catch (e) {
-      console.log(e);
       Toast.show({
         type: 'error',
         text1: 'Hmm, kami nemu error nih!',
@@ -116,15 +114,18 @@ const Login = ({navigation}: Props) => {
   return (
     <Container
       fill
-      navbar={{
-        type: 'back',
-      }}
       spacing={spacing.medium}
       backgroundColor={pallate.whiteout['01']}
       padding={{
+        paddingVertical: spacing.large,
         paddingHorizontal: spacing.extraLarge,
       }}>
-      <VStack spacing={spacing.small}>
+      <Logo height={40} width={120} />
+      <VStack
+        padding={{
+          paddingTop: spacing.large,
+        }}
+        spacing={spacing.small}>
         <Text
           type="title"
           color={pallate.blackout['05']}
